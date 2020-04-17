@@ -12,7 +12,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         buttonCalculate.setOnClickListener {
-            val star = textInputCount.text.toString().toInt()
+            val star =
+                if (textInputCount.text.toString().isNotEmpty()) textInputCount.text.toString()
+                    .toInt() else 0
             textResult.text = calculate(star)
         }
     }
@@ -30,14 +32,14 @@ class MainActivity : AppCompatActivity() {
             else -> {
                 val stringBuilder = StringBuilder()
                 var space = 0
-                for (i in 1..star / 2) {
-                    if (i == 1) {
+                for (i in 0 until star/2) {
+                    if (i == 0 || i == star - 1) {
                         if (star % 2 == 1) {
                             stringBuilder.append("*")
                         } else {
                             stringBuilder.append("**")
                         }
-                    }else{
+                    } else {
                         stringBuilder.append("*")
                     }
                     if (space > 0) {
@@ -46,6 +48,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     stringBuilder.append(System.getProperty("line.separator"))
                     space++
+
                 }
 
                 if (star % 2 == 0) {
